@@ -24,9 +24,6 @@
     p{
         margin: 0;
     }
-    h2{
-        margin-top: 0;
-    }
     li {
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -36,22 +33,22 @@
 
 <body>
     <h1>GitHub Webhook Events</h1>
-    <ul>
-        {% for webhook in webhooks %}
-        <li>
-            <div>
-                <a href="{{ webhook['html_url'] }}">
-                    <h2>{{ webhook['repo'] }}</h2>
-                </a>
-                
-                <p>author:{{ webhook['author'] }}</p>
-                <p>time:{{ webhook['timestamp'] }}</p>
-                <p>commit hash:{{ webhook['commit'] }}</p>
-                <p>message: {{ webhook['message'] }}</p>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+    {% for repo, events in webhooks.items() %}
+    <a href="{{events[0].html_url}}">
+        <h2>{{ repo }}</h2>
+    </a>
+        <ul>
+            {% for event in events %}
+                <li>
+                    <p>Commit: {{ event.commit }}</p>
+                    <p>Message: {{ event.message }}</p>
+                    <p>Author: {{ event.author }}</p>
+                    <p>Timestamp: {{ event.timestamp }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
 </body>
 
 </html>
