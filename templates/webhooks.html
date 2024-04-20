@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GitHub Webhook Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+</head>
+
+<style>
+   *{
+        font-family: 'JetBrains Mono', monospace;
+    }
+    body{
+        padding-left: 20px;
+    }
+    ul {
+        list-style-type: none;
+        padding-left: 30px;
+        margin: 0;
+    }
+    p{
+        margin: 0;
+    }
+    h2{
+        margin-top: 0;
+    }
+    li {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+    }
+</style>
+
+<body>
+    <h1>GitHub Webhook Events</h1>
+    <ul>
+        {% for webhook in webhooks %}
+        <li>
+            <div>
+                <a href="{{ webhook['html_url'] }}">
+                    <h2>{{ webhook['repo'] }}</h2>
+                </a>
+                
+                <p>author:{{ webhook['author'] }}</p>
+                <p>time:{{ webhook['timestamp'] }}</p>
+                <p>commit hash:{{ webhook['commit'] }}</p>
+                <p>message: {{ webhook['message'] }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
+
+<!-- filtered_data = {
+    "repo": repo_info["full_name"],
+    "html_url": repo_info["html_url"],
+    "timestamp": commit_info["timestamp"],
+    "commit": commit_info["id"],
+    "message": commit_info["message"],
+    "author": commit_info["author"]["name"]
+} -->
